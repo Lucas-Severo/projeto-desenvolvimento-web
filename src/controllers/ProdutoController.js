@@ -50,7 +50,44 @@ module.exports = {
 
             return res.status(204).send();
         } catch(error) {
-            return res.status(400).send({error: error.message});
+            return res.status(400).send({message: error.message});
+        }
+    },
+
+    async sell(req, res) {
+        const { id } = req.params;
+
+        try {
+            const produto = await Produto.findOne({
+                where: {
+                    id
+                }
+            });
+
+            if(produto != null) {
+                const quantity = produto.quantidade;
+                
+                if(quantity === 0)
+                    throw new Error('Produto esgotado');
+
+                const produtoCont = produto.dataValues;
+
+                produtoCont.quantidade -= 1;
+
+                const id = produtoCont.id;
+
+                const novoProduto = await Produto.update(produtoCont, {
+                    where: {
+                        id
+                    }
+                });
+
+                return res.status(200).json({produtoCont});
+            }
+
+            return res.json({produto});
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
         }
     }
 }
