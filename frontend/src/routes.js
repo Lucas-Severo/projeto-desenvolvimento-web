@@ -3,6 +3,10 @@ const routes = express.Router();
 
 const api = require('./services/api');
 
+routes.get('/cadastrar', async (req, res) => {
+    return res.render('salvar.html');
+});
+
 routes.get('/produtos', async (req, res) => {
 
     const produtos = await api.get('/produtos');
@@ -34,9 +38,21 @@ routes.get('/produtos/:id/alterar', async (req, res) => {
     return res.render('atualizar.html', {produto: produto.data.produtoCont});
 });
 
+routes.post('/cadastrar', async (req, res) => {
+    const id = req.body.id;
+
+    if(req.body.desconto == 0)
+        req.body.desconto = null;
+    await api.post(`/produtos/`, req.body);
+
+    return res.redirect('/produtos');
+});
+
 routes.post('/salvar', async (req, res) => {
     const id = req.body.id;
 
+    if(req.body.desconto == 0)
+        req.body.desconto = null;
     await api.put(`/produtos/${id}`, req.body);
 
     return res.redirect('/produtos');

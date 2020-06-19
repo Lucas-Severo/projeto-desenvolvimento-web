@@ -15,8 +15,12 @@
     <input id="quantidade" name="quantidade" type="text" value={{produto.quantidade}}>
 
     <label for="desconto">Desconto:</label>
-    <input id="desconto" name="desconto" type="text" value={{produto.desconto}}>
 
+    {% if produto.desconto %}
+        <input id="desconto" name="desconto" type="text" value={{produto.desconto}}>
+        {% else %}
+        <input id="desconto" name="desconto" type="text" value="0">
+    {% endif%}
     <button type="submit">Salvar</button>
     <a href="/produtos">Voltar</a>
 </form>
