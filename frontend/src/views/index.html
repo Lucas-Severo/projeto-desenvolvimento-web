@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Teste
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<ul class="produtos">
+    {% for produto in produtos %}
+    <li class="produto">
+        {{produto.id}}
+        <p>Nome: {{ produto.nome }}</p>
+        <p>Preço: R${{ produto.preco }}</p>
+        <p>Quantidade: {{ produto.quantidade }}</p>
+        {% if produto.desconto %}
+            <p>Desconto: {{ produto.desconto }}%</p>
+        {% endif %}
+        <div class="actions">
+            <a href={{ "/produtos/"+produto.id+"/vender" }}>
+                Vender
+            </a>
+            <a href={{ "/produtos/"+produto.id+"/alterar" }}>
+                Alterar
+            </a>
+            <a href={{ "/produtos/"+produto.id+"/excluir"}}>
+                Excluir
+            </a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

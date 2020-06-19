@@ -6,6 +6,24 @@ module.exports = {
         return res.status(200).json({produtos});
     },
 
+    async findById(req, res) {
+        const { id } = req.params;
+
+        const produto = await Produto.findOne({
+            where: {
+                id
+            }
+        });
+
+        if(produto != null)
+        {
+            const produtoCont = produto.dataValues;
+            return res.status(200).json({ produtoCont });
+        }
+        
+        return res.status(200).json({ produto });
+    },
+
     async create(req, res) {
         const produto = req.body;
         
