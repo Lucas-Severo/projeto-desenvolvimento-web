@@ -1,24 +1,35 @@
 {% extends "base.html" %}
 
+{% block title %}
+    <title>Cadastrar produto</title>
+    <link rel="stylesheet" href="/cadastrar.css"/>
+{% endblock %}
+
 {% block content %}
 
 <form action="/cadastrar" id="atualizarForm" method="POST">
-    <input name="id" type="hidden">
+    <div class="form__title">
+        <h1>Cadastrar Produto</h1>
+    </div>
 
-    <label for="nome">Nome:</label>
-    <input id="nome" name="nome" type="text">
+    <div class="form__info">
+        <input name="id" type="hidden">
 
-    <label for="preco">Preço:</label>
-    <input id="preco" name="preco" type="text">
+        <label for="nome">Nome:</label>
+        <input required id="nome" name="nome" type="text">
 
-    <label for="quantidade">Quantidade:</label>
-    <input id="quantidade" name="quantidade" type="text"}}>
+        <label for="preco">Preço:</label>
+        <input pattern="[0-9.]+" placeholder="150.00" required id="preco" name="preco" type="text">
 
-    <label for="desconto">Desconto:</label>
-    <input id="desconto" name="desconto" type="text">
+        <label for="quantidade">Quantidade:</label>
+        <input pattern="[0-9]+$" required id="quantidade" name="quantidade" type="text">
 
-    <button type="submit">Salvar</button>
-    <a href="/produtos">Voltar</a>
+        <label for="desconto">Desconto:</label>
+        <input id="desconto" name="desconto" type="text">
+
+        <button type="submit">Salvar</button>
+        <a href="/produtos" class="button__back">Voltar</a>
+    </div>
 </form>
 
 {% endblock %}

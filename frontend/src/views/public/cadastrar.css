@@ -1,0 +1,40 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#atualizarForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ddda;
+}
+
+.form__info {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    font-size: 15px;
+    width: 300px;
+    outline: none;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.button__back {
+    padding-top: 8px;
+    text-align: center;
+}

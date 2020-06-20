@@ -2,27 +2,34 @@
 
 {% block content %}
 
-<a href="/cadastrar">Adicionar produto</a>
+<a class="cadastrar__button" href="/cadastrar">Adicionar produto</a>
 
 <ul class="produtos">
     {% for produto in produtos %}
     <li class="produto">
-        {{produto.id}}
-        <p>Nome: {{ produto.nome }}</p>
-        <p>Preço: R${{ produto.preco }}</p>
-        <p>Quantidade: {{ produto.quantidade }}</p>
-        {% if produto.desconto %}
-            <p>Desconto: {{ produto.desconto }}%</p>
-        {% endif %}
+        <div class="info">
+            <p>Codigo: {{produto.id}}</p>
+            <p>Nome: {{ produto.nome }}</p>
+            <p>Preço: R${{ produto.preco }}</p>
+            <p>Quantidade: {{ produto.quantidade }}</p>
+
+            {% if produto.desconto %}
+                <p>Desconto: {{ produto.desconto }}%</p>
+            {% endif %}
+
+            {% if produto.quantidade == 0 %}
+                <p class="out">Produto Esgotado!</p>
+            {% endif %}
+        </div>
         <div class="actions">
-            <a href={{ "/produtos/"+produto.id+"/vender" }}>
-                Vender
+            <a class="actions__button" href={{ "/produtos/"+produto.id+"/vender" }}>
+                🛒 Vender
             </a>
-            <a href={{ "/produtos/"+produto.id+"/alterar" }}>
-                Alterar
+            <a class="actions__button" href={{ "/produtos/"+produto.id+"/alterar" }}>
+                ⟳ Alterar
             </a>
-            <a href={{ "/produtos/"+produto.id+"/excluir"}}>
-                Excluir
+            <a class="actions__button" href={{ "/produtos/"+produto.id+"/excluir"}}>
+                <p>&#10060; Excluir</p>
             </a>
         </div>
     </li>
