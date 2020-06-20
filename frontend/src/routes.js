@@ -3,6 +3,10 @@ const routes = express.Router();
 
 const api = require('./services/api');
 
+routes.get('/', async (req, res) => {
+    return res.render('home.html');
+});
+
 routes.get('/cadastrar', async (req, res) => {
     return res.render('salvar.html');
 });
