@@ -33,8 +33,8 @@ const Produto = connection.define('Produto', {
         allowNull: true
     }
 
+}, {
+    freezeTableName: true
 });
-
-//Produto.sync({force: true});
 
 module.exports = Produto;
