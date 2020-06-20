@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Fazer Pedido</title>
+    <link rel="stylesheet" href="/cadastrar.css"/>
+{% endblock %}
+
+{% block content %}
+
+<form action="/salvar_pedido" id="atualizarForm" method="POST">
+    <div class="form__title">
+        <h1>Fazer Pedido</h1>
+    </div>
+
+    <div class="form__info">
+        <label for="nome">Nome:</label>
+        <input required id="nome" name="nome" type="text">
+
+        <label for="endereco">Endereço:</label>
+        <input required id="endereco" name="endereco" type="text">
+        
+        <p id="add">Adicionar produto</p>
+
+        <div class="product__info">
+            <select required class="product__select" name="produto">
+                {% for produto in produtos %}
+                    <option value={{produto.id}}>{{produto.nome}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="1">Quantidade: </label>
+            <input pattern="[0-9]+$" class="produto__quantidade" name="quantidade" required id="1" type="text">
+        </div>
+
+        <div class="form__produtos"></div>
+
+        <button type="submit">Salvar</button>
+        <a href="/pedidos" class="button__back">Voltar</a>
+    </div>
+</form>
+
+<script src="js/adicionaCampo.js"></script>
+
+{% endblock %}

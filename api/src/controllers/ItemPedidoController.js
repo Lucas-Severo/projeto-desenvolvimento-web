@@ -38,9 +38,9 @@ module.exports = {
         });
         
         try {
-            if(quantidade <= 0 || quantidade > produto.quantidade) {
-                throw new Error('quantidade de produtos inválida. Há apenas ' + produto.quantidade + ' desse produto no estoque.');
-            }
+            //if(quantidade <= 0 || quantidade > produto.quantidade) {
+            //    throw new Error('quantidade de produtos inválida. Há apenas ' + produto.quantidade + ' desse produto no estoque.');
+            //}
 
             const novoItemPedido = await ItemPedido.create(itemPedido);
             return res.status(201).json(novoItemPedido);

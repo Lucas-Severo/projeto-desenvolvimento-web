@@ -107,5 +107,45 @@ routes.get('/pedidos/:id', async (req, res) => {
     return res.render('produtos_comprados.html', {produtos: produtosOrdenados});
 });
 
+routes.get('/pedido_cadastrar', async (req, res) => {
+    const produtos = await api.get('/produtos');
+
+    return res.render('pedidos_cadastrar.html', {produtos: produtos.data.produtos});
+});
+
+routes.post('/salvar_pedido', async (req, res) => {
+    const nome = req.body.nome;
+    const endereco = req.body.endereco;
+
+    console.log(req.body);
+
+    const pedido = await api.post('/pedidos', {nome, endereco});
+    const id_pedido = pedido.data.id;
+
+    if(req.body.produto.length == 1) {
+        const id_produto = req.body.produto;
+        const quantidade = req.body.quantidade;
+
+        const data = {
+            "id_pedido": id_pedido,
+            "id_produto": id_produto,
+            "quantidade": quantidade
+        };
+
+        await api.post('/items', data);
+    } else {
+        for(let i = 0; i < req.body.produto.length; i++) {
+            const data = {
+                "id_pedido": id_pedido,
+                "id_produto": req.body.produto[i],
+                "quantidade": req.body.quantidade[i]
+            };
+            await api.post('/items', data);
+        }
+    }
+
+    return res.redirect('/pedidos');
+});
+
 
 module.exports = routes;
