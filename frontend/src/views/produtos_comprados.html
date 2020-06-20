@@ -5,7 +5,7 @@
 <a class="cadastrar__button" href="/pedidos">&#11013; Ver todos os pedidos</a>
 <a class="cadastrar__button" href="/cadastrar">Adicionar produto</a>
 
-<p class="title">Produtos pedidos: {{ produtos.length }}</p>
+<p class="title">Produtos pedidos: {{ produtos.length }} <br/> Preço Total: {{ precoTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</p>
 
 <ul class="produtos">
     {% for produto in produtos %}
@@ -13,7 +13,7 @@
         <div class="info">
             <p>Codigo: {{produto.id_produto}}</p>
             <p>Nome: {{ produto.nome }}</p>
-            <p>Preço: R${{ produto.preco }}</p>
+            <p>Preço: {{ produto.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</p>
             <p>Quantidade: {{ produto.quantidade }}</p>
 
             {% if produto.desconto %}

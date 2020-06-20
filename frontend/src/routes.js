@@ -97,14 +97,18 @@ routes.get('/pedidos/:id', async (req, res) => {
         return a.id - b.id;
     });
 
+    let precoTotal = 0;
+
     for(produtoOrdenado of produtosOrdenados) {
         const p = await api.get(`/produtos/${produtoOrdenado.id_produto}`);
 
         produtoOrdenado['nome'] = p.data.produtoCont.nome;
-        produtoOrdenado['preco'] = p.data.produtoCont.preco;
+        produtoOrdenado['preco'] = Number(p.data.produtoCont.preco);
+
+        precoTotal += (p.data.produtoCont.preco * produtoOrdenado.quantidade);
     }
 
-    return res.render('produtos_comprados.html', {produtos: produtosOrdenados});
+    return res.render('produtos_comprados.html', {produtos: produtosOrdenados, precoTotal});
 });
 
 routes.get('/pedido_cadastrar', async (req, res) => {

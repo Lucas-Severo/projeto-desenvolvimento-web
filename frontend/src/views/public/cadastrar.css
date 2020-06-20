@@ -5,16 +5,20 @@ html, body {
 
 #atualizarForm {
     display: flex;
+    padding-top: 50px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0 auto;
     background-color: #ddda;
 }
 
 .form__info {
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 label {
