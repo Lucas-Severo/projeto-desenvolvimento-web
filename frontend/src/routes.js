@@ -103,9 +103,19 @@ routes.get('/pedidos/:id', async (req, res) => {
         const p = await api.get(`/produtos/${produtoOrdenado.id_produto}`);
 
         produtoOrdenado['nome'] = p.data.produtoCont.nome;
-        produtoOrdenado['preco'] = Number(p.data.produtoCont.preco);
 
-        precoTotal += (p.data.produtoCont.preco * produtoOrdenado.quantidade);
+        if(p.data.produtoCont.desconto != null) {
+            const desconto = p.data.produtoCont.desconto;
+            const precoAtual = Number(p.data.produtoCont.preco - (p.data.produtoCont.preco * desconto / 100));
+            
+            produtoOrdenado['desconto'] = desconto;
+            produtoOrdenado['precoAtual'] = precoAtual;
+            produtoOrdenado['precoAnterior'] = Number(p.data.produtoCont.preco);
+        } else {
+            produtoOrdenado['precoAtual'] = Number(p.data.produtoCont.preco);
+        }
+        
+        precoTotal += (produtoOrdenado['precoAtual'] * produtoOrdenado.quantidade);
     }
 
     return res.render('produtos_comprados.html', {produtos: produtosOrdenados, precoTotal});
@@ -120,8 +130,6 @@ routes.get('/pedido_cadastrar', async (req, res) => {
 routes.post('/salvar_pedido', async (req, res) => {
     const nome = req.body.nome;
     const endereco = req.body.endereco;
-
-    console.log(req.body);
 
     const pedido = await api.post('/pedidos', {nome, endereco});
     const id_pedido = pedido.data.id;

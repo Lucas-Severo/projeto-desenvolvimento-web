@@ -13,16 +13,15 @@
         <div class="info">
             <p>Codigo: {{produto.id_produto}}</p>
             <p>Nome: {{ produto.nome }}</p>
-            <p>Preço: {{ produto.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</p>
+
+            {% if produto.precoAnterior %}
+                <p>Desconto: {{ produto.desconto }}%</p>    
+                <p style="color: gray;">Preço Anterior: {{ produto.precoAnterior.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</p>
+            {% endif %}
+
+            <p style="font-weight: bolder;">Preço Atual: {{ produto.precoAtual.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</p>
             <p>Quantidade: {{ produto.quantidade }}</p>
-
-            {% if produto.desconto %}
-                <p>Desconto: {{ produto.desconto }}%</p>
-            {% endif %}
-
-            {% if produto.quantidade == 0 %}
-                <p class="out">Produto Esgotado!</p>
-            {% endif %}
+            
         </div>
     </li>
     {% endfor %}
